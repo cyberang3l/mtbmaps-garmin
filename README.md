@@ -45,12 +45,11 @@ The key differences are:
 # How to use
 
 1. Go to http://frikart.no/garmin/velgkart.html and download `Topo Summer II`
-   and install it in your device (read the installation manual)
+   and install it on your device (read the installation manual)
 2. Generate the MTB map overlay by running the `make` command after you clone
    this repository. If everything works, you should find a gmapsupp file named
    `YYYY-MM-DD-mtbmap-norway.img` in the `out` directory. All you need to do
-   then is to copy this file in the `Garmin` directory of your device. You
-   will end up with the file: `Garmin/YYYY-MM-DD-mtbmap-norway.img`.
+   is to copy this file in the `Garmin` directory of your device.
 3. Start your device, go to:
    `Menu → Settings → Activity Profiles → select profile → Navigation → Configure Maps`
 4. Disable all maps
