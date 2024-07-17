@@ -36,7 +36,7 @@ class Once(argparse.Action):
 
 
 parser = argparse.ArgumentParser(
-    prog='Garmin IMG Map Rename',
+    prog='rename-garmin-img-map.py',
     description='Renaming the map name that is visible in the map selection menu in your Garmin device', formatter_class=argparse.RawTextHelpFormatter)
 
 parser.add_argument('-i', '--info', dest='info', action='store_true',
