@@ -1,7 +1,9 @@
 # MTBMaps Garmin
 
 A project to assist with autogeneration of vectorized MTB map overlays
-for Garmin devices and allows for maximum map tuning.
+for Garmin devices and allows for maximum map tuning. Note that this is an
+overlay and you still need a base map to use it. See the
+[How to use](#how-to-use) section below for more information.
 
 The generated map overlay is inspired by [mtbmap.no](https://mtbmap.no/info),
 but comes with a few differences that make the map much easier to read on a
@@ -42,11 +44,17 @@ The key differences are:
 
 # How to use
 
-All you should need to do is run the `make` script, and you should
-hopefully get a gmapsupp file called `YYYY-MM-DD-mtbmap-norway.img`
-in the `out` directory. All you need to do then is to copy this file in the
-`Garmin` directory of your device. You will end up with the file:
-`Garmin/YYYY-MM-DD-mtbmap-norway.img`.
+1. Go to http://frikart.no/garmin/velgkart.html and download `Topo Summer II`
+   and install it in your device (read the installation manual)
+2. Generate the MTB map overlay by running the `make` command after you clone
+   this repository. If everything works, you should find a gmapsupp file named
+   `YYYY-MM-DD-mtbmap-norway.img` in the `out` directory. All you need to do
+   then is to copy this file in the `Garmin` directory of your device. You
+   will end up with the file: `Garmin/YYYY-MM-DD-mtbmap-norway.img`.
+3. Start your device, go to:
+   `Menu → Settings → Activity Profiles → select profile → Navigation → Configure Maps`
+4. Disable all maps
+5. Enable only the `OSM Topo Summer II` and `MTB Map Norway` maps
 
 # Useful map development resources:
 
