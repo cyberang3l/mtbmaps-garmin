@@ -2,7 +2,12 @@
 set -eu
 
 MAP_NAME="MTB Map Norway"
-FINAL_OUT_FNAME="mtbmap-norway-vangelis.img"
+FINAL_OUT_FNAME="mtbmap-norway.img"
+
+FORCE_FLAG=0
+if [[ $# -gt 0 ]] && [[ "${1}" == "force" ]]; then
+	FORCE_FLAG=1
+fi
 
 BASE_DIR="$(realpath .)"
 BUILD_DIR=build
@@ -89,10 +94,15 @@ OSM_FILTERED_FNAME="${PBF_FNAME}.osm"
 O5M_FILTERED_FNAME="${PBF_FNAME}-filtered.o5m"
 PBF_URL="${BASE_URL}/${PBF_FNAME}"
 
-if [[ ! -e "${MD5_FNAME}" ]]; then
+if [[ ! -e "${PBF_FNAME}" ]]; then
 	download_pbf
-elif [[ -e "${MD5_FNAME}" ]] && ! md5sum_check; then
-	download_pbf
+elif [[ -e "${PBF_FNAME}" ]]; then
+	if [[ ${FORCE_FLAG} -eq 0 ]] && [[ "$(find "${PBF_FNAME}" -mtime 7 -print)" != "" ]]; then
+		echo >&2 "${PBF_FNAME} is more than 7 days old!"
+		echo >&2 "Run 'make clean' and re-run this script, or run 'make force' to"
+		echo >&2 "ignore this check and use the cached file to generate the map"
+		exit 1
+	fi
 fi
 md5sum_check
 
@@ -148,7 +158,8 @@ test ! -e mtbstyle.typ
 java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" "${BASE_DIR}/mtbmaps/typfile/mtbstyle.txt"
 java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp -c template.args mtbstyle.typ
 
-MAP_DESC="OSM Data until ${metadata_date}"
+# Start with three spaces for better visualisation on the device
+MAP_DESC="   OSM data until ${metadata_date//-/}"
 echo >&2 "Map generation complete! Renaming to '${MAP_NAME}'"
 echo >&2 "Setting map description to '${MAP_DESC}'"
 "${BASE_DIR}/rename-garmin-img-map.py" --name "${MAP_NAME}" --description "${MAP_DESC}" gmapsupp.img

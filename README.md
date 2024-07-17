@@ -42,11 +42,11 @@ The key differences are:
 
 # How to use
 
-All you should need to do is run the `build-maps.sh` script, and you should
-hopefully get a gmapsupp file called `YYYY-MM-DD-mtbmap-norway-vangelis.img`
+All you should need to do is run the `make` script, and you should
+hopefully get a gmapsupp file called `YYYY-MM-DD-mtbmap-norway.img`
 in the `out` directory. All you need to do then is to copy this file in the
 `Garmin` directory of your device. You will end up with the file:
-`Garmin/YYYY-MM-DD-mtbmap-norway-vangelis.img`.
+`Garmin/YYYY-MM-DD-mtbmap-norway.img`.
 
 # Useful map development resources:
 
