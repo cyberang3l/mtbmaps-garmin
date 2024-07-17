@@ -1,6 +1,6 @@
 # MTBMaps Garmin
 
-A project to assist with autogeneration of vectorized mtbmaps overlays
+A project to assist with autogeneration of vectorized MTB map overlays
 for Garmin devices and allows for maximum map tuning.
 
 The generated map overlay is inspired by [mtbmap.no](https://mtbmap.no/info),
@@ -8,8 +8,8 @@ but comes with a few differences that make the map much easier to read on a
 Garmin Edge 1050, which is the only device I've used to try the map so far.
 
 The key differences are:
-* This map is not plotting MTB trails in the Extreme II, Extreme II
-  and Impossible categories as I never dare to cycle in such trails.
+* This map is not plotting MTB trails in the Extreme I, Extreme II
+  and Impossible categories, as I never dare to cycle on such trails.
 * The remaining categories (easy, intermediate, advanced, expert)
   that are plotted, appear on the GPS device as much thicker
   lines, and are easier to see even on max zoom levels.
