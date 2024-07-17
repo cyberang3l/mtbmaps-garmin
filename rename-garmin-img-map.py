@@ -118,6 +118,8 @@ def main() -> int:
     if args.desc is not None:
         set_map_desc(mapfile_stream, args.desc)
 
+    return 0
+
 
 if __name__ == "__main__":
     exit(main())
