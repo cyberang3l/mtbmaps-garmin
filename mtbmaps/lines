@@ -1,0 +1,48 @@
+# Green paths with orange highlight - top recommended
+"mtb:scale"=0 & "class:bicycle:mtb">=3 [0x20 level 0-3 continue]
+# Green paths with yellow highlight - recommended
+"mtb:scale"=0 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x21 level 0-3 continue]
+# Green paths fade colour - not recommended
+"mtb:scale"=0 & "class:bicycle:mtb"<0 [0x22 level 0-3 continue]
+# Green paths
+"mtb:scale"=0 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x23 level 0-3 continue]
+
+
+# Blue paths with orange highlight - top recommended
+"mtb:scale"=1 & "class:bicycle:mtb">=3 [0x24 level 0-3 continue]
+# Blue paths with yellow highlight - recommended
+"mtb:scale"=1 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x25 level 0-3 continue]
+# Blue paths fade colour - not recommended
+"mtb:scale"=1 & "class:bicycle:mtb"<0 [0x26 level 0-3 continue]
+# Blue paths
+"mtb:scale"=1 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x27 level 0-3 continue continue]
+
+
+# Red paths with orange highlight - top recommended
+"mtb:scale"=2 & "class:bicycle:mtb">=3 [0x28 level 0-3 continue]
+# Red paths with yellow highlight - recommended
+"mtb:scale"=2 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x29 level 0-3 continue]
+# Red paths fade colour - not recommended
+"mtb:scale"=2 & "class:bicycle:mtb"<0 [0x2A level 0-3 continue]
+# Red paths
+"mtb:scale"=2 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x2B level 0-3 continue]
+
+
+# Black paths with orange highlight - top recommended
+"mtb:scale"=3 & "class:bicycle:mtb">=3 [0x30 level 0-3 continue]
+# Black paths with yellow highlight - recommended
+"mtb:scale"=3 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x31 level 0-3 continue]
+# Black paths fade colour - not recommended
+"mtb:scale"=3 & "class:bicycle:mtb"<0 [0x32 level 0-3 continue]
+# Black paths
+"mtb:scale"=3 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x33 level 0-3 continue]
+
+
+# When we are zoomed out a lot, present everything in a single color
+"mtb:scale"=* [0x39 level 4-5 continue]
+
+"highway"="path" [0x34 level 0-1 continue]
+"highway"="track" [0x35 level 0-1 continue]
+
+<finalize>
+"mtb:scale"=* { name '${mtb:name}' | '${name}'; }

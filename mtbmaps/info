@@ -1,0 +1,21 @@
+#
+# Info about the MTBMap style
+#
+
+summary: MTBMap style
+
+version=1.0
+
+description {
+MTBMap style with the following colouring of MTB trails:
+1. Green - mtb:scale == 0
+2. Blue  - mtb:scale == 1
+3. Red   - mtb:scale == 2
+4. Black - mtb:scale == 3
+
+-- Do not draw unhuman scales 4-6
+
+* Yellow highlight for recommended trails (class:bicycle:mtb == 1 or class:bicycle:mtb == 2)
+* Orange/Pink highlight for top recommended trails (class:bicycle:mtb == 3)
+* Pale green/blue/red/black colour for non-recommended trails (class:bicycle:mtb < 0)
+}
