@@ -9,12 +9,16 @@ if [[ $# -gt 0 ]] && [[ "${1}" == "force" ]]; then
 	FORCE_FLAG=1
 fi
 
+if [[ $# -gt 0 ]] && [[ "${1}" == "qmapshack" ]]; then
+	QMAPSHACK_FLAG=1
+fi
+
 BASE_DIR="$(realpath .)"
 BUILD_DIR=build
 BASE_URL=https://download.geofabrik.de/europe/
 MD5_FNAME=norway-latest.osm.pbf.md5
 PBF_MD5_URL="${BASE_URL}"/"${MD5_FNAME}"
-
+TYP_FILE_SRC="${BASE_DIR}/mtbmaps/typfile/mtbstyle.txt"
 BASE_MKGMAP_SVN_URL=http://svn.mkgmap.org.uk/
 BASE_MKGMAP_DOWNLOAD_URL=https://www.mkgmap.org.uk/download/
 
@@ -106,6 +110,11 @@ elif [[ -e "${PBF_FNAME}" ]]; then
 fi
 md5sum_check
 
+if [[ ${QMAPSHACK_FLAG} -eq 1 ]]; then
+	# Thicken the BorderWidth
+	sed -i 's/BorderWidth=.*/BorderWidth=8/g' "${TYP_FILE_SRC}"
+fi
+
 if [[ ! -e metadata_date ]]; then
 	fetch_metadata_date >metadata_date
 fi
@@ -155,7 +164,7 @@ java -jar splitter/splitter.jar "${O5M_FILTERED_FNAME}"
 
 # Compile the typfile
 test ! -e mtbstyle.typ
-java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" "${BASE_DIR}/mtbmaps/typfile/mtbstyle.txt"
+java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" "${TYP_FILE_SRC}"
 java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp -c template.args mtbstyle.typ
 
 # Start with three spaces for better visualisation on the device
@@ -169,3 +178,8 @@ mkdir -p "${BASE_DIR}/out"
 OUTPUT="${BASE_DIR}/out/${metadata_date//-/}-${FINAL_OUT_FNAME}"
 echo >&2 "Moving output to ${OUTPUT}"
 mv gmapsupp.img "${OUTPUT}"
+
+if [[ ${QMAPSHACK_FLAG} -eq 1 ]]; then
+	# Restore the BorderWidth
+	sed -i 's/BorderWidth=.*/BorderWidth=1/g' "${TYP_FILE_SRC}"
+fi

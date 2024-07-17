@@ -9,30 +9,33 @@ The generated map overlay is inspired by [mtbmap.no](https://mtbmap.no/info),
 but comes with a few differences that make the map much easier to read on a
 Garmin Edge 1050, which is the only device I've used to try the map so far.
 
-The key differences are:
-* This map is not plotting MTB trails in the Extreme I, Extreme II
-  and Impossible categories, as I never dare to cycle on such trails.
-* The remaining categories (easy, intermediate, advanced, expert)
-  that are plotted, appear on the GPS device as much thicker
-  lines, and are easier to see even on max zoom levels.
+The key differences versus the mtbmap.no Garmin version are:
+* The trails appear on the GPS device as much thicker lines, and are easier
+  to see even on max zoom levels.
 * The following colours are used for drawing the trails:
   - Easy trails: Green
   - Intermediate trails: Blue
   - Advanced trails: Red
   - Expert trails: Black
-  - All of the above are highlighted with yellow if they are "recommended"
+  - Extreme trails I and II: Dark pale yellow surrounded by black
+  - Impossible trails: Dark pale red surrounded by black
+  - All of the trail categories, with the exception of extreme and impossible
+    trails, are highlighted with yellow if they are "recommended"
     trails (`class:bicycle:mtb` OSM tag values of 1 and 2)
-  - All of the above are highlighted with an orange/pink color if they are
+  - All of the trail categories, with the exception of extreme and impossible
+    trails, are highlighted with an orange/pink color if they are
     "highly recommended" trails (`class:bicycle:mtb` OSM tag values of 3)
-  - All of the above get a pale colour (lighter green, lighter blue, light
-    pink, and light shade of gray) when they are not recommended
-    (`class:bicycle:mtb` OSM tag values < 0)
+  - All of the trail categories, with the exception of extreme and impossible
+    trails, that are always dark pale coloured, get a pale colour (lighter
+    green, lighter blue, light pink, and light shade of gray) when they are
+    not recommended (`class:bicycle:mtb` OSM tag values < 0)
 * Some extra features that I do not commit to them, but were nice to see
   while building this map:
-  - The size of the entire Norway is 5.5MBs vs ca 18MB for the same Garmin
+  - The size of the entire Norway is 5.6MBs vs ca 18MB for the same Garmin
     map that is provided by mtbmap.no
-  - For some reason (I can only speculate why), this loading and rendering
-    much faster than the one provided by mtbmap.no
+  - For some reason (I can only speculate why), the loading and rendering
+    of the overlay map built by this script is much faster than the one
+    provided by mtbmap.no
 
 # Sample screenshots
 
@@ -59,6 +62,11 @@ The key differences are:
 
 * QMapShack to visualize the maps during the map development process:
   https://github.com/Maproom/qmapshack/releases
+  - Note that the rendering on the device is surprisingly different when
+    compared to the QMapShack rendering, so always load the map on
+    the device to ensure it looks as it is intended to look before you "ship it"
+  - When testing changes in the map style, compile with `make qmapshack`
+    to get a result that resembles closer what you will see on the device
 * mkgmap docs:
   - https://www.mkgmap.org.uk/doc/index.html
   - https://www.mkgmap.org.uk/doc/pdf/style-manual.pdf
