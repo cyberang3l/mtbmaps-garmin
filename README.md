@@ -32,7 +32,15 @@ The key differences are:
   - For some reason (I can only speculate why), this loading and rendering
     much faster than the one provided by mtbmap.no
 
-## How to use
+# Sample screenshots
+
+![2024-07-17-21-12-25](https://github.com/user-attachments/assets/67ae94d9-2dfe-45e5-8881-0f174b365592)
+![2024-07-17-21-13-37](https://github.com/user-attachments/assets/17f43103-eb47-4409-94af-532f3898e22d)
+![2024-07-17-21-14-25](https://github.com/user-attachments/assets/77425603-d0e7-4f04-b87b-e9d71128b573)
+![2024-07-17-21-14-41](https://github.com/user-attachments/assets/bb01ad19-7387-4653-a74a-0bb18f924de1)
+
+
+# How to use
 
 All you should need to do is run the `build-maps.sh` script, and you should
 hopefully get a gmapsupp file called `YYYY-MM-DD-mtbmap-norway-vangelis.img`
@@ -40,7 +48,7 @@ in the `out` directory. All you need to do then is to copy this file in the
 `Garmin` directory of your device. You will end up with the file:
 `Garmin/YYYY-MM-DD-mtbmap-norway-vangelis.img`.
 
-## Useful map development resources:
+# Useful map development resources:
 
 * QMapShack to visualize the maps during the map development process:
   https://github.com/Maproom/qmapshack/releases
