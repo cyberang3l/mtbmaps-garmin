@@ -5,6 +5,7 @@ MAP_NAME="MTB Map Norway"
 FINAL_OUT_FNAME="mtbmap-norway.img"
 
 FORCE_FLAG=0
+QMAPSHACK_FLAG=0
 if [[ $# -gt 0 ]] && [[ "${1}" == "force" ]]; then
 	FORCE_FLAG=1
 fi
