@@ -1,9 +1,9 @@
 # MTBMaps Garmin
 
-A project to assist with autogeneration of vectorized MTB map overlays
-for Garmin devices and allows for maximum map tuning. Note that this is an
-overlay and you still need a base map to use it. See the
-[How to use](#how-to-use) section below for more information.
+A project to assist with autogeneration of vectorized MTB map overlays, from
+the latest OpenStreetMap data, for Garmin devices and allows for maximum map
+tuning. Note that this is an overlay and you still need a base map to use it.
+See the [How to use](#how-to-use) section below for more information.
 
 The generated map overlay is inspired by [mtbmap.no](https://mtbmap.no/info),
 but comes with a few differences that make the map much easier to read on a
