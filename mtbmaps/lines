@@ -1,53 +1,60 @@
+# Note that the 3 least significant byte of 2 and 3 byte hex codes
+# cannot take values higher than 1f
+# See the "tests performed by check-style" section, 5.1.1, on the
+# mkgmap docs
+
 # Green trails with orange highlight - top recommended
-"mtb:scale"=0 & "class:bicycle:mtb">=3 [0x20 level 0-3 continue]
+"mtb:scale"=0 & "class:bicycle:mtb">=3 [0x010000 level 0-6 continue]
 # Green trails with yellow highlight - recommended
-"mtb:scale"=0 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x21 level 0-3 continue]
+"mtb:scale"=0 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x010001 level 0-3 continue]
 # Green trails fade colour - not recommended
-"mtb:scale"=0 & "class:bicycle:mtb"<0 [0x22 level 0-3 continue]
+"mtb:scale"=0 & "class:bicycle:mtb"<0 [0x010002 level 0-3 continue]
 # Green trails
-"mtb:scale"=0 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x23 level 0-3 continue]
+"mtb:scale"=0 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x010003 level 0-3 continue]
 
 
 # Blue trails with orange highlight - top recommended
-"mtb:scale"=1 & "class:bicycle:mtb">=3 [0x24 level 0-3 continue]
+"mtb:scale"=1 & "class:bicycle:mtb">=3 [0x010004 level 0-6 continue]
 # Blue trails with yellow highlight - recommended
-"mtb:scale"=1 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x25 level 0-3 continue]
+"mtb:scale"=1 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x010005 level 0-3 continue]
 # Blue trails fade colour - not recommended
-"mtb:scale"=1 & "class:bicycle:mtb"<0 [0x26 level 0-3 continue]
+"mtb:scale"=1 & "class:bicycle:mtb"<0 [0x010006 level 0-3 continue]
 # Blue trails
-"mtb:scale"=1 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x27 level 0-3 continue continue]
+"mtb:scale"=1 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x010007 level 0-3 continue continue]
 
 
 # Red trails with orange highlight - top recommended
-"mtb:scale"=2 & "class:bicycle:mtb">=3 [0x28 level 0-3 continue]
+"mtb:scale"=2 & "class:bicycle:mtb">=3 [0x010008 level 0-6 continue]
 # Red trails with yellow highlight - recommended
-"mtb:scale"=2 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x29 level 0-3 continue]
+"mtb:scale"=2 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x010009 level 0-3 continue]
 # Red trails fade colour - not recommended
-"mtb:scale"=2 & "class:bicycle:mtb"<0 [0x2A level 0-3 continue]
+"mtb:scale"=2 & "class:bicycle:mtb"<0 [0x01000a level 0-3 continue]
 # Red trails
-"mtb:scale"=2 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x2B level 0-3 continue]
+"mtb:scale"=2 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x01000b level 0-3 continue]
 
 
 # Black trails with orange highlight - top recommended
-"mtb:scale"=3 & "class:bicycle:mtb">=3 [0x30 level 0-3 continue]
+"mtb:scale"=3 & "class:bicycle:mtb">=3 [0x01000c level 0-6 continue]
 # Black trails with yellow highlight - recommended
-"mtb:scale"=3 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x31 level 0-3 continue]
+"mtb:scale"=3 & "class:bicycle:mtb">=1 & "class:bicycle:mtb"<3 [0x01000d level 0-3 continue]
 # Black trails fade colour - not recommended
-"mtb:scale"=3 & "class:bicycle:mtb"<0 [0x32 level 0-3 continue]
+"mtb:scale"=3 & "class:bicycle:mtb"<0 [0x01000e level 0-3 continue]
 # Black trails
-"mtb:scale"=3 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x33 level 0-3 continue]
+"mtb:scale"=3 & ("class:bicycle:mtb"=0 | "class:bicycle:mtb"!=*) [0x01000f level 0-3 continue]
 
 # Extreme trails
-("mtb:scale"=4 | "mtb:scale"=5 ) [0x36 level 0-3 continue]
+("mtb:scale"=4 | "mtb:scale"=5 ) [0x010010 level 0-3 continue]
 
 # You'll certainly die trails
-"mtb:scale"=6 [0x37 level 0-3 continue]
+"mtb:scale"=6 [0x010011 level 0-3 continue]
 
 # When we are zoomed out a lot, present everything in a single color
-"mtb:scale"=* [0x39 level 4-5 continue]
+# Note that we present the superstar trails (class:bicycle:mtb>=3)
+# in color
+"mtb:scale"=* & "class:bicycle:mtb"<3 [0x010012 level 4-5 continue]
 
-"highway"="path" [0x34 level 0-1 continue]
-"highway"="track" [0x35 level 0-1 continue]
+"highway"="path" [0x010013 level 0-1 continue]
+"highway"="track" [0x010014 level 0-1 continue]
 
 <finalize>
 "mtb:scale"=* { name '${mtb:name}' | '${name}'; }
