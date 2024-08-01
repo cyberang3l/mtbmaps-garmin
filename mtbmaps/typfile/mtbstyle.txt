@@ -24,28 +24,28 @@ Based on mkgmap default style version: r4293
 [End]
 
 
-;[_drawOrder]
-;Type=0x010000,5
-;Type=0x010001,1
-;Type=0x010002,1
-;Type=0x010003,1
-;Type=0x010004,5
-;Type=0x010005,1
-;Type=0x010006,1
-;Type=0x010007,1
-;Type=0x010008,5
-;Type=0x010009,1
-;Type=0x01000a,1
-;Type=0x01000b,1
-;Type=0x01000c,5
-;Type=0x01000d,1
-;Type=0x01000e,1
-;Type=0x01000f,1
-;Type=0x010010,1
-;Type=0x010011,1
-;Type=0x010012,1
-;Type=0x010013,10
-;Type=0x010014,10
+[_drawOrder]
+Type=0x010000,5
+Type=0x010001,4
+Type=0x010002,1
+Type=0x010003,3
+Type=0x010004,5
+Type=0x010005,4
+Type=0x010006,1
+Type=0x010007,3
+Type=0x010008,5
+Type=0x010009,4
+Type=0x01000a,1
+Type=0x01000b,3
+Type=0x01000c,5
+Type=0x01000d,4
+Type=0x01000e,1
+Type=0x01000f,3
+Type=0x010010,1
+Type=0x010011,1
+Type=0x010012,1
+Type=0x010013,10
+Type=0x010014,10
 
 ;====================== LINES ===========================
 

@@ -165,8 +165,8 @@ java -jar splitter/splitter.jar "${O5M_FILTERED_FNAME}"
 
 # Compile the typfile
 test ! -e mtbstyle.typ
-java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp --tdbfile --transparent --cycle-map "${TYP_FILE_SRC}"
-java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp --tdbfile --transparent --cycle-map -c template.args mtbstyle.typ
+java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp --tdbfile --transparent --cycle-map --draw-priority=100 "${TYP_FILE_SRC}"
+java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --gmapsupp --tdbfile --transparent --cycle-map --draw-priority=100 -c template.args mtbstyle.typ
 
 # Start with three spaces for better visualisation on the device
 MAP_DESC="   OSM data until ${metadata_date//-/}"
