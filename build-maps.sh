@@ -77,6 +77,18 @@ COUNTRY=norway
 FORCE_FLAG=0
 QMAPSHACK_FLAG=0
 
+ALL_COUNTRIES=$(
+	IFS=,
+	echo "${AVAILABLE_MAPS[*]}"
+)
+
+if [ $# -eq 0 ]; then
+	echo -e "Please run this script with one of the following country code names:\n${ALL_COUNTRIES}"
+	echo ""
+	echo "For example run '$0 norway' to build the MTB map for Norway"
+	exit 1
+fi
+
 while [ $# -gt 0 ]; do
 	case "${1}" in
 	force)
@@ -91,10 +103,6 @@ while [ $# -gt 0 ]; do
 		;;
 	*)
 		if ! [[ " ${AVAILABLE_MAPS[*]} " == *" ${1} "* ]]; then
-			ALL_COUNTRIES=$(
-				IFS=,
-				echo "${AVAILABLE_MAPS[*]}"
-			)
 			echo -e "Invalid country code name \"${1}\". Please choose one from the following:\n${ALL_COUNTRIES}"
 			exit 1
 		fi
