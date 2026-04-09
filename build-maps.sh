@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -euo pipefail
 
 MAP_NAME="MTB Map Norway"
 FINAL_OUT_FNAME="mtbmap-norway.img"
@@ -15,13 +15,17 @@ if [[ $# -gt 0 ]] && [[ "${1}" == "qmapshack" ]]; then
 fi
 
 BASE_DIR="$(realpath .)"
-BUILD_DIR=build
-BASE_URL=https://download.geofabrik.de/europe/
-MD5_FNAME=norway-latest.osm.pbf.md5
-PBF_MD5_URL="${BASE_URL}"/"${MD5_FNAME}"
+BUILD_DIR="build"
+BASE_URL="https://download.geofabrik.de/europe/"
+MD5_FNAME="norway-latest.osm.pbf.md5"
+PBF_MD5_URL="${BASE_URL}${MD5_FNAME}"
 TYP_FILE_SRC="${BASE_DIR}/mtbmaps/typfile/mtbstyle.txt"
-BASE_MKGMAP_SVN_URL=http://svn.mkgmap.org.uk/
-BASE_MKGMAP_DOWNLOAD_URL=https://www.mkgmap.org.uk/download/
+BASE_MKGMAP_SVN_URL="http://svn.mkgmap.org.uk"
+BASE_MKGMAP_DOWNLOAD_URL="https://www.mkgmap.org.uk/download"
+# Seems like the latest.pbf has been removed from the list of items in the BASE_URL.
+# Use a regex pattern to find the line we care about. See the fetch_metadata_date
+# function for more details.
+PERL_REGEX_TO_GREP_FOR_METADATA="norway-\d+\.osm.pbf"
 
 echo >&2 "Checking if required OSM tools are installed - if this fails, try 'apt-get install osmctools'"
 set -x
@@ -50,7 +54,7 @@ function md5sum_check() {
 
 function fetch_metadata_date() {
 	echo >&2 "Fetching metadata from ${BASE_URL}"
-	wget "${BASE_URL}" -O - | grep -w "${MD5_FNAME}" | grep -oP "\d\d\d\d-\d\d-\d\d"
+	wget "${BASE_URL}" -O - | grep -P "${PERL_REGEX_TO_GREP_FOR_METADATA}" | tail -1 | grep -oP "\d\d\d\d-\d\d-\d\d"
 }
 
 function splitter_fname() {
@@ -97,7 +101,7 @@ PBF_FNAME="$(awk '{print $2}' "${MD5_FNAME}")"
 O5M_FNAME="${PBF_FNAME}.o5m"
 OSM_FILTERED_FNAME="${PBF_FNAME}.osm"
 O5M_FILTERED_FNAME="${PBF_FNAME}-filtered.o5m"
-PBF_URL="${BASE_URL}/${PBF_FNAME}"
+PBF_URL="${BASE_URL}${PBF_FNAME}"
 
 if [[ ! -e "${PBF_FNAME}" ]]; then
 	download_pbf
