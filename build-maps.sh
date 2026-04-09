@@ -124,9 +124,10 @@ echo "Building map for ${COUNTRY_CAPITALIZED_FIRSTS}"
 
 MAP_NAME="MTB Map ${COUNTRY_CAPITALIZED_FIRSTS}"
 FINAL_OUT_FNAME="mtbmap-${COUNTRY}.img"
+METADATA_DATE_FNAME="${COUNTRY}-metadata_date"
 
 BASE_DIR="$(realpath .)"
-BUILD_DIR="build"
+BUILD_DIR="build/${COUNTRY}"
 BASE_URL="https://download.geofabrik.de/europe/"
 MD5_FNAME="${COUNTRY}-latest.osm.pbf.md5"
 PBF_MD5_URL="${BASE_URL}${MD5_FNAME}"
@@ -231,10 +232,10 @@ if [[ ${QMAPSHACK_FLAG} -eq 1 ]]; then
 	sed -i 's/BorderWidth=.*/BorderWidth=8/g' "${TYP_FILE_SRC}"
 fi
 
-if [[ ! -e metadata_date ]]; then
-	fetch_metadata_date >metadata_date
+if [[ ! -e ${METADATA_DATE_FNAME} ]]; then
+	fetch_metadata_date >"${METADATA_DATE_FNAME}"
 fi
-metadata_date="$(cat metadata_date)"
+metadata_date="$(cat "${METADATA_DATE_FNAME}")"
 
 # Check the the style looks OK
 java -jar mkgmap/mkgmap.jar --style-file="${BASE_DIR}/mtbmaps" --list-styles
