@@ -106,7 +106,7 @@ def main() -> int:
     if args.info or args.desc is None and args.name is None:
         info = read_current_info(mapfile_stream)
         print(f"   Map name: {info.name}\n"
-              f"Description: {info.desc}"),
+              f"Description: {info.desc}")
         return 0
 
     if mapfile_stream.name == "<stdin>":
