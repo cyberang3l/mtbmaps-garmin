@@ -1,18 +1,22 @@
-.PHONY: clean clean-all build force
+.PHONY: clean clean-all
 
-all: build
+COUNTRIES := $(shell cat build-maps.sh  | sed -n '/AVAILABLE_MAPS=(/,/)/p' | sed '1d;$d' | sed 's/"//g')
 
-build:
-	bash build-maps.sh
+all: $(COUNTRIES)
 
-force:
-	bash build-maps.sh force
+$(COUNTRIES): %:
+	bash build-maps.sh $@
+
+
+# Force build targets
+$(COUNTRIES:=-force): %-force:
+	bash build-maps.sh $* force
 
 # QMapShack renders the map differently than the device, and
 # we need to thicken the border lines to see roughly how it will
 # look like on the device
-qmapshack:
-	bash build-maps.sh qmapshack
+$(COUNTRIES:=-qmapshack): %-qmapshack:
+	bash build-maps.sh $* qmapshack
 
 clean:
 	rm -rf build

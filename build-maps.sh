@@ -1,23 +1,126 @@
 #!/bin/bash
 set -euo pipefail
 
-MAP_NAME="MTB Map Norway"
-FINAL_OUT_FNAME="mtbmap-norway.img"
+AVAILABLE_MAPS=(
+	"albania"
+	"alps"
+	"andorra"
+	"austria"
+	"azores"
+	"belarus"
+	"belgium"
+	"bosnia-herzegovina"
+	"britain-and-ireland"
+	"bulgaria"
+	"croatia"
+	"cyprus"
+	"czech-republic"
+	"dach"
+	"denmark"
+	"estonia"
+	"faroe-islands"
+	"finland"
+	"france"
+	"georgia"
+	"germany"
+	"great-britain"
+	"greece"
+	"guernsey-jersey"
+	"hungary"
+	"iceland"
+	"ireland-and-northern-ireland"
+	"isle-of-man"
+	"italy"
+	"kosovo"
+	"latvia"
+	"liechtenstein"
+	"lithuania"
+	"luxembourg"
+	"macedonia"
+	"malta"
+	"moldova"
+	"monaco"
+	"montenegro"
+	"netherlands"
+	"norway"
+	"poland"
+	"portugal"
+	"romania"
+	"serbia"
+	"slovakia"
+	"slovenia"
+	"spain"
+	"sweden"
+	"switzerland"
+	"turkey"
+	"ukraine"
+	"united-kingdom"
+)
 
+declare -A LONG_COUNTRY_MAP_NAMES=(
+	["bosnia-herzegovina"]=Bosnia
+	["britain-and-ireland"]=BritIrelan
+	["czech-republic"]=Chech
+	["faroe-islands"]=Faroe
+	["great-britain"]=GB
+	["guernsey-jersey"]=Guernsey
+	["ireland-and-northern-ireland"]=Ireland
+	["isle-of-man"]=IsleOfMan
+	["liechtenstein"]=Liechtens
+	["netherlands"]=Holand
+	["switzerland"]=Swiss
+	["united-kingdom"]=UK
+)
+
+# Default country is Norway if no first arg is provided
+COUNTRY=norway
 FORCE_FLAG=0
 QMAPSHACK_FLAG=0
-if [[ $# -gt 0 ]] && [[ "${1}" == "force" ]]; then
-	FORCE_FLAG=1
-fi
 
-if [[ $# -gt 0 ]] && [[ "${1}" == "qmapshack" ]]; then
-	QMAPSHACK_FLAG=1
+while [ $# -gt 0 ]; do
+	case "${1}" in
+	force)
+		echo "Force flag enabled"
+		FORCE_FLAG=1
+		shift
+		;;
+	qmapshack)
+		echo "Qmapshack flag enabled"
+		QMAPSHACK_FLAG=1
+		shift
+		;;
+	*)
+		if ! [[ " ${AVAILABLE_MAPS[*]} " == *" ${1} "* ]]; then
+			ALL_COUNTRIES=$(
+				IFS=,
+				echo "${AVAILABLE_MAPS[*]}"
+			)
+			echo -e "Invalid country code name \"${1}\". Please choose one from the following:\n${ALL_COUNTRIES}"
+			exit 1
+		fi
+		COUNTRY="${1}"
+		shift
+		;;
+	esac
+done
+
+COUNTRY_CAPITALIZED_FIRSTS=$(echo "${COUNTRY}" | sed -r 's/(^|-)([a-z])/\1\u\2/g')
+
+# If country name longer than 10 chars (we find it's country code name in
+# LONG_COUNTRY_MAP_NAMES), it cannot fit in the MAP_NAME - use the name from
+# the LONG_COUNTRY_MAP_NAMES instead
+if [[ "${LONG_COUNTRY_MAP_NAMES[${COUNTRY}]+isset}" == "isset" ]]; then
+	COUNTRY_CAPITALIZED_FIRSTS=${LONG_COUNTRY_MAP_NAMES[${COUNTRY}]}
 fi
+echo "Building map for ${COUNTRY_CAPITALIZED_FIRSTS}"
+
+MAP_NAME="MTB Map ${COUNTRY_CAPITALIZED_FIRSTS}"
+FINAL_OUT_FNAME="mtbmap-${COUNTRY}.img"
 
 BASE_DIR="$(realpath .)"
 BUILD_DIR="build"
 BASE_URL="https://download.geofabrik.de/europe/"
-MD5_FNAME="norway-latest.osm.pbf.md5"
+MD5_FNAME="${COUNTRY}-latest.osm.pbf.md5"
 PBF_MD5_URL="${BASE_URL}${MD5_FNAME}"
 TYP_FILE_SRC="${BASE_DIR}/mtbmaps/typfile/mtbstyle.txt"
 BASE_MKGMAP_SVN_URL="http://svn.mkgmap.org.uk"
@@ -25,7 +128,7 @@ BASE_MKGMAP_DOWNLOAD_URL="https://www.mkgmap.org.uk/download"
 # Seems like the latest.pbf has been removed from the list of items in the BASE_URL.
 # Use a regex pattern to find the line we care about. See the fetch_metadata_date
 # function for more details.
-PERL_REGEX_TO_GREP_FOR_METADATA="norway-\d+\.osm.pbf"
+PERL_REGEX_TO_GREP_FOR_METADATA="${COUNTRY}-\d+\.osm.pbf"
 
 echo >&2 "Checking if required OSM tools are installed - if this fails, try 'apt-get install osmctools'"
 set -x
